@@ -1,0 +1,453 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Not to be included -->
+  <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i,900,900i&display=swap" rel="stylesheet">
+  <style>
+    html, body {padding:0; margin:0;}
+  </style>
+  <!-- End: Not to be included -->
+</head>
+
+<style>
+.overlay-bottom-bar {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1200;
+    height: 200px;
+    background-color: #FFCA05;
+    box-shadow: 0 -2px 1px 2px rgba(0,0,0,0.02), 0 -3px 10px 0 rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.overlay-bottom-bar .form-title {
+    margin-top: 10px;
+    color: #001246;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    text-align: left;
+    max-width: 80%;
+}
+
+.overlay-bottom-bar .form-subtitle {
+    color: #001246;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-bottom: 10px;
+}
+
+  .overlay-bottom-bar .box-container {
+    display: flex;
+    box-sizing: border-box;
+    width: 580px;
+    border: 1px solid #D7D7D7;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    max-width: 90%;
+  }
+
+  .overlay-bottom-bar .form-button {
+    background-color: #4585FF;
+    color: #fff;
+    padding: 0 1.428571428571429rem;
+    height: 2.714285714285714rem;
+    min-width: 6.714285714285714rem;
+    border-radius: .214285714285714rem;
+    font-family: Roboto, sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    cursor: pointer;
+  }
+
+  .overlay-bottom-bar .input-email {
+    height: 2.714285714285714rem;
+    line-height: 2.714285714285714rem;
+    color: #666;
+    font-size: 20px;
+    padding: .642857142857143rem .928571428571429rem;
+    width: 100%;
+    min-width: 0;
+    border: none;
+  }
+
+  .overlay-bottom-bar .subscription-content,
+  .overlay-bottom-bar .success-msg,
+  .overlay-bottom-bar .error-msg {
+    width: 100%;
+    max-width: 640px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  .overlay-bottom-bar .success-msg,
+  .overlay-bottom-bar .error-msg {
+    display: none;
+  }
+
+  .overlay-bottom-bar .success-title,
+  .overlay-bottom-bar .error-title {
+      text-transform: uppercase;
+      color: #001246;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 1.285714285714286rem;
+      font-weight: bold;
+      line-height: 1.285714285714286rem;
+      text-align: left;
+      margin-top: 40px;
+  }
+
+  .overlay-bottom-bar .success-title::after,
+  .overlay-bottom-bar .error-title::after {
+    content: "";
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: 2rem;
+    height: 0.142857142857143rem;
+    margin-top: 1.071428571428571rem;
+    background: #001246;
+  }
+
+  .overlay-bottom-bar .success-readmore,
+  .overlay-bottom-bar .error-readmore {
+    font-size: 1rem;
+    line-height: 1.142857142857143rem;
+    margin-top: 20px;
+  }
+
+  .overlay-bottom-bar .bottom-bar-form {
+    text-align: left;
+  }
+
+  .overlay-bottom-bar .footnote {
+    color: #001246;
+    text-align: left;
+    font-size: .857142857142857rem;
+    line-height: 1.285714285714286rem;
+    margin-top: 10px;
+  }
+
+  .overlay-bottom-bar .bottom-bar-close-button {
+    position: absolute;
+    right : 0;
+    margin: 28px;
+    cursor: pointer;
+  }
+
+  .overlay-bottom-bar a {
+    text-decoration: underline;
+  }
+
+  /* Animation */
+
+  #slide.hide {
+      bottom: -200px;
+      transition: 0.6s;
+  }
+
+  #slide {
+      transition: 0.6s;
+      bottom: 0;
+  }
+
+  /* Responsive; */
+
+  @media (max-width: 767px) {
+  .overlay-bottom-bar .form-title {
+    font-size: 1.5rem;
+  }
+
+  .overlay-bottom-bar .form-subtitle {
+    font-size: 1rem;
+  }
+}
+
+</style>
+<!-- Begin of HTML Element -->
+
+
+<div class="overlay-bottom-bar hide" id="slide">
+  <div class="bottom-bar-close-button">
+    <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="newsletter_slidein_desktop" transform="translate(-1380.000000, -725.000000)">
+                <g id="Group" transform="translate(0.000000, 701.000000)">
+                    <g id="icon_close_masthead" transform="translate(1376.000000, 20.000000)">
+                        <rect id="Rectangle-7-Copy-4" x="0" y="0" width="36" height="36"></rect>
+                        <polygon id="Fill-1" fill="#000000" opacity="0.403827219" points="30.438 4.5 18 16.9395 5.5635 4.5 4.5 5.562 16.938 18 4.5 30.4395 5.5635 31.5 18 19.062 30.438 31.5 31.5 30.4395 19.0635 18 31.5 5.562"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </svg>
+  </div>
+
+  <div class="subscription-content">
+    <div class="form-title">Don't miss critical events in Hong Kong</div>
+    <div class="form-subtitle">Get our newsletter sent Monday to Friday</div>
+
+    <form class="bottom-bar-form" action="" method="GET">
+      <div class="box-container">
+        <input type="hidden" name="u" value="3775521f5f542047246d9c827">
+        <input type="hidden" name="id" value="49b181c3f1">
+        <input class="email input-email" type="email" value="" name="EMAIL" placeholder="Your Email" required="">
+        <input type="submit" value="SIGN UP" name="submit" id="mc-embedded-subscribe" class="form-button">
+        <input type="hidden" value="" name="GA_CLIENID" class="" id="BOTTOM_BAR_GA_CLIENID">
+      </div>
+      <p class="footnote">By registering, you agree to our <a href="https://www.scmp.com/terms-conditions" target="_blank">T&amp;C</a> and <a href="https://www.scmp.com/privacy-policy" target="_blank">Privacy Policy</a></p>
+    </form>
+
+  </div>
+
+  <div class="success-msg">
+    <div class="success-title">Thank you for your subscription.</div>
+
+    <div class="success-readmore">
+      You can also view our <a href="/newsletters" class="more__link link">other newsletters</a>.
+    </div>
+  </div>
+
+  <div class="error-msg">
+    <div class="error-title">Sorry. There is a problem.</div>
+
+    <div class="error-readmore">
+      Thank you, but there is an error. Please try subscribing on <a href="/newsletters" target="_blank" class="more__link link"> our newsletter page.</a>
+    </div>
+  </div>
+</div>
+
+<!-- End of element -->
+
+
+<script>
+
+let dataLayer = {push: function(x){return x}}; // debug only
+
+SCMPBottomBar = (function() {
+  let newsletterName = 'Hong Kong News';
+
+  function getGAId() {
+    let gaId = (typeof ga !== "undefined") ? ga.getAll()[0].get('clientId') : "";
+    return gaId;
+  }
+
+  // JASONP Helper
+  var $jsonp = (function() {
+    var that = {};
+    that.send = function(src, options) {
+      var callback_name = options.callbackName || 'callback',
+        on_success = options.onSuccess || function() {},
+        on_timeout = options.onTimeout || function() {},
+        timeout = options.timeout || 10; // sec
+
+      var timeout_trigger = window.setTimeout(function() {
+        window[callback_name] = function() {};
+        on_timeout();
+      }, timeout * 1000);
+
+      window[callback_name] = function(data) {
+        window.clearTimeout(timeout_trigger);
+        on_success(data);
+      }
+
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.src = src;
+
+      document.getElementsByTagName('head')[0].appendChild(script);
+    }
+
+    return that;
+  })();
+
+  // UI control
+  function showSuccess() {
+    let content = document.querySelector(".overlay-bottom-bar .subscription-content")
+    let success = document.querySelector(".overlay-bottom-bar .success-msg")
+
+    content.style.display = "none";
+    success.style.display = "block";
+  }
+
+  function showError() {
+    let content = document.querySelector(".overlay-bottom-bar .subscription-content")
+    let error = document.querySelector(".overlay-bottom-bar .error-msg")
+
+    content.style.display = "none";
+    error.style.display = "block";
+  }
+
+  function showBottomBar() {
+    let bar = document.querySelector(".overlay-bottom-bar");
+    let content = document.querySelector(".overlay-bottom-bar .subscription-content")
+    let error = document.querySelector(".overlay-bottom-bar .error-msg")
+    let success = document.querySelector(".overlay-bottom-bar .success-msg")
+
+    bar.classList.remove('hide');
+    content.style.display = "block";
+    success.style.display = "none";
+    error.style.display = "none";
+
+    recordBarShown();
+    markShowDate();
+    trackEvent('Bottom Bar', 'Bottom Bar/Show/'+getBarShowTime(), newsletterName);
+  }
+
+  function dismissBottomBar(e) {
+    let bar = document.querySelector(".overlay-bottom-bar");
+    // bar.style.display = "none";
+    bar.classList.add('hide');
+    trackEvent('Bottom Bar', 'Bottom Bar/Dismiss', newsletterName);
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+    trackEvent('Bottom Bar', 'Bottom Bar/Sign up/'+getBarShowTime(), newsletterName);
+
+    let subscriptionURL = "http://scmp.us18.list-manage2.com/subscribe/post-json?";
+
+    // Fill in GA_CLIENID
+    document.getElementById('BOTTOM_BAR_GA_CLIENID').value = getGAId();
+
+    let formData = Array.from(
+      new FormData(formElement),
+      e => e.map(encodeURIComponent).join('=')
+    ).join('&')
+
+    $jsonp.send(subscriptionURL + formData + "&c=callback", {
+      callbackName: 'callback',
+      onSuccess: function(json) {
+        if (json.result !== "error") {
+          console.log('success!', json);
+          trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
+          showSuccess()
+        } else {
+          console.log('error', json);
+          showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+          showError();
+        }
+      },
+      onTimeout: function() {
+        console.log('timeout!');
+        trackEvent('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+        showError();
+      },
+      timeout: 10
+    });
+  }
+
+  function trackEvent(category, action, label) {
+    dataLayer.push({'event':'tracking',
+      'tracking': {category: category, action:action , label: label}
+    })
+  }
+
+  /* Event listeners */
+
+  let formElement = document.querySelector(".bottom-bar-form")
+  formElement.addEventListener('submit', submitForm);
+
+  let closeButtonElement = document.querySelector('.bottom-bar-close-button')
+  closeButtonElement.addEventListener('click', dismissBottomBar);
+
+  /* control when to show */
+
+  const BAR_SHOW_COUNT = 'SCMP_BOTTOM_BAR_SHOW_COUNT'
+  const BAR_LAST_SHOWN_DATE = 'SCMP_BOTTOM_BAR_LAST_SHOWN_DATE'
+
+  function recordBarShown () {
+    let timeShown = getBarShowTime();
+    window.localStorage.setItem(BAR_SHOW_COUNT, timeShown+1);
+  }
+
+  function shouldShowBar () {
+    return getBarShowTime < 3;
+  }
+
+  function getBarShowTime() {
+    return parseInt(window.localStorage.getItem(BAR_SHOW_COUNT) || 0);
+  }
+
+   function isAfterOneDay() {
+    var lastShownTs = +localStorage.getItem(BAR_LAST_SHOWN_DATE);
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    var lastShown = null;
+    if (!isNaN(lastShownTs)) {
+      lastShown = new Date(lastShownTs);
+      lastShown.setHours(0, 0, 0, 0);
+    }
+
+    return lastShown == null || lastShown.getTime() != currentDate.getTime()
+  }
+
+  function markShowDate() {
+    var lastShownTs = +localStorage.getItem(BAR_LAST_SHOWN_DATE);
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (!isNaN(lastShownTs)) {
+      lastShown = new Date(lastShownTs);
+      lastShown.setHours(0, 0, 0, 0);
+    }
+    if (lastShown == null || lastShown.getTime() != currentDate.getTime()) {
+      localStorage.setItem(BAR_LAST_SHOWN_DATE, currentDate.getTime());
+    }
+  }
+
+  function showBottomBarInSeconds(seconds) {
+    setTimeout(showBottomBar, seconds*1000)
+  }
+
+  /* Perform experiment when meets criteria */
+  function initExperiment() {
+    const MAX_SHOW_TIME = 5;
+      if (getBarShowTime() < MAX_SHOW_TIME && isAfterOneDay()) {
+          console.log("will show");
+          showBottomBarInSeconds(5);
+      } else {
+        console.log("won't show")
+      }
+  }
+
+  /* Export */
+  return {
+    publicShowError: function() {
+      showError();
+    },
+    publicShowSuccess: function() {
+      showSuccess();
+    },
+    publicShowBottomBar: function() {
+      showBottomBar();
+    },
+    dismissBottomBar: function() {
+      dismissBottomBar();
+    },
+    recordBarShown: function() {
+      return recordBarShown();
+    },
+    getBarShowTime: function() {
+      return getBarShowTime();
+    },
+    isAfterOneDay: function() {
+      return isAfterOneDay();
+    },
+    markShowDate: function() {
+      return  markShowDate();
+    },
+    initExperiment: function() {
+      return  initExperiment();
+    }
+  }
+
+})();
+
+SCMPBottomBar.initExperiment();
+
+</script>
+</html>
+
+
