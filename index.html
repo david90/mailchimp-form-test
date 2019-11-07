@@ -191,7 +191,7 @@
     <form class="bottom-bar-form" action="" method="GET">
       <div class="box-container">
         <input type="hidden" name="u" value="3775521f5f542047246d9c827">
-        <input type="hidden" name="id" value="49b181c3f1">
+        <input type="hidden" name="id" value="3376425751">
         <input class="email input-email" type="email" value="" name="EMAIL" placeholder="Your Email" required="">
         <input type="submit" value="SIGN UP" name="submit" id="mc-embedded-subscribe" class="form-button">
         <input type="hidden" value="" name="GA_CLIENID" class="" id="BOTTOM_BAR_GA_CLIENID">
@@ -315,7 +315,7 @@ SCMPBottomBar = (function() {
     e.preventDefault();
     trackEvent('Bottom Bar', 'Bottom Bar/Sign up/'+getBarShowTime(), newsletterName);
 
-    let subscriptionURL = "https://scmp.us18.list-manage2.com/subscribe/post-json?";
+    let subscriptionURL = "http://scmp.us18.list-manage2.com/subscribe/post-json?";
 
     // Fill in GA_CLIENID
     document.getElementById('BOTTOM_BAR_GA_CLIENID').value = getGAId();
@@ -329,10 +329,10 @@ SCMPBottomBar = (function() {
     /*.AJAX way */
 
       $.ajax({
-          url: subscriptionURL + formData + "&c=callback",
+          url: subscriptionURL + formData + "",
           dataType: 'jsonp',
-          success: function(dataWeGotViaJsonp){
-
+          jsonp: 'c',
+          success: function(json){
            if (json.result !== "error") {
               console.log('success!', json);
               trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
@@ -348,26 +348,26 @@ SCMPBottomBar = (function() {
 
     /*Old way*/
 
-    $jsonp.send(subscriptionURL + formData + "&c=callback", {
-      callbackName: 'callback',
-      onSuccess: function(json) {
-        if (json.result !== "error") {
-          console.log('success!', json);
-          trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
-          showSuccess()
-        } else {
-          console.log('error', json);
-          showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
-          showError();
-        }
-      },
-      onTimeout: function() {
-        console.log('timeout!');
-        trackEvent('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
-        showError();
-      },
-      timeout: 10
-    });
+    // $jsonp.send(subscriptionURL + formData + "&c=callback", {
+    //   callbackName: 'callback',
+    //   onSuccess: function(json) {
+    //     if (json.result !== "error") {
+    //       console.log('success!', json);
+    //       trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
+    //       showSuccess()
+    //     } else {
+    //       console.log('error', json);
+    //       showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+    //       showError();
+    //     }
+    //   },
+    //   onTimeout: function() {
+    //     console.log('timeout!');
+    //     trackEvent('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+    //     showError();
+    //   },
+    //   timeout: 10
+    // });
   }
 
   function trackEvent(category, action, label) {
@@ -480,5 +480,3 @@ SCMPBottomBar.initExperiment();
 
 </script>
 </html>
-
-
