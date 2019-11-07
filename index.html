@@ -2,7 +2,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Not to be included -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i,900,900i&display=swap" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i,900,900i&display=swap" rel="stylesheet">
   <style>
     html, body {padding:0; margin:0;}
   </style>
@@ -221,6 +221,14 @@
 <!-- End of element -->
 
 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script>
+
+
+
+</script>
+
+
 <script>
 
 let dataLayer = {push: function(x){return x}}; // debug only
@@ -316,6 +324,29 @@ SCMPBottomBar = (function() {
       new FormData(formElement),
       e => e.map(encodeURIComponent).join('=')
     ).join('&')
+
+
+    /*.AJAX way */
+
+      $.ajax({
+          url: subscriptionURL + formData + "&c=callback",
+          dataType: 'jsonp',
+          success: function(dataWeGotViaJsonp){
+
+           if (json.result !== "error") {
+              console.log('success!', json);
+              trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
+              showSuccess()
+            } else {
+              console.log('error', json);
+              showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+              showError();
+            }
+
+          }
+      });
+
+    /*Old way*/
 
     $jsonp.send(subscriptionURL + formData + "&c=callback", {
       callbackName: 'callback',
