@@ -2,7 +2,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Not to be included -->
-  <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i,900,900i&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i,900,900i&display=swap" rel="stylesheet">
   <style>
     html, body {padding:0; margin:0;}
   </style>
@@ -315,7 +315,7 @@ SCMPBottomBar = (function() {
     e.preventDefault();
     trackEvent('Bottom Bar', 'Bottom Bar/Sign up/'+getBarShowTime(), newsletterName);
 
-    let subscriptionURL = "https://scmp.us18.list-manage2.com/subscribe/post-json?";
+    let subscriptionURL = "http://scmp.us18.list-manage2.com/subscribe/post-json?";
 
     // Fill in GA_CLIENID
     document.getElementById('BOTTOM_BAR_GA_CLIENID').value = getGAId();
@@ -332,6 +332,7 @@ SCMPBottomBar = (function() {
           url: subscriptionURL + formData + "",
           dataType: 'jsonp',
           jsonp: 'c',
+          crossDomain: true,
           success: function(json){
            if (json.result !== "error") {
               console.log('success!', json);
@@ -343,6 +344,9 @@ SCMPBottomBar = (function() {
               showError();
             }
 
+          },
+          error:function(jqXHR, textStatus, errorThrown){
+            alert(errorThrown);
           }
       });
 
@@ -445,13 +449,13 @@ SCMPBottomBar = (function() {
 
   /* Export */
   return {
-    publicShowError: function() {
+    showError: function() {
       showError();
     },
-    publicShowSuccess: function() {
+    showSuccess: function() {
       showSuccess();
     },
-    publicShowBottomBar: function() {
+    showBottomBar: function() {
       showBottomBar();
     },
     dismissBottomBar: function() {
@@ -467,10 +471,10 @@ SCMPBottomBar = (function() {
       return isAfterOneDay();
     },
     markShowDate: function() {
-      return  markShowDate();
+      return markShowDate();
     },
     initExperiment: function() {
-      return  initExperiment();
+      return initExperiment();
     }
   }
 
@@ -480,3 +484,5 @@ SCMPBottomBar.initExperiment();
 
 </script>
 </html>
+
+
