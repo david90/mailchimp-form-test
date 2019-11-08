@@ -299,15 +299,6 @@
 
 <!-- End of element -->
 
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script>
-
-
-
-</script>
-
-
 <script>
 
 let dataLayer = {push: function(x){return x}}; // debug only
@@ -404,33 +395,6 @@ SCMPBottomBar = (function() {
       e => e.map(encodeURIComponent).join('=')
     ).join('&')
 
-
-    /*.AJAX way */
-
-      // $.ajax({
-      //     url: subscriptionURL + formData + "",
-      //     dataType: 'jsonp',
-      //     jsonp: 'c',
-      //     crossDomain: true,
-      //     success: function(json){
-      //      if (json.result !== "error") {
-      //         console.log('success!', json);
-      //         trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
-      //         showSuccess()
-      //       } else {
-      //         console.log('error', json);
-      //         showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
-      //         showError();
-      //       }
-
-      //     },
-      //     error:function(jqXHR, textStatus, errorThrown){
-      //       alert(errorThrown);
-      //     }
-      // });
-
-    /*Old way*/
-
     $jsonp.send(subscriptionURL + formData + "&c=callback", {
       callbackName: 'callback',
       onSuccess: function(json) {
@@ -440,7 +404,7 @@ SCMPBottomBar = (function() {
           showSuccess()
         } else {
           console.log('error', json);
-          showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+          trackEvent('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
           showError();
         }
       },
@@ -563,5 +527,3 @@ SCMPBottomBar.initExperiment();
 
 </script>
 </html>
-
-
