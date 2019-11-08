@@ -5,6 +5,8 @@
   <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i,900,900i&display=swap" rel="stylesheet">
   <style>
     html, body {padding:0; margin:0;}
+
+    body {height: 5000px;}
   </style>
   <!-- End: Not to be included -->
 </head>
@@ -103,7 +105,6 @@
     content: "";
     display: block;
     position: relative;
-    margin: 0 auto;
     width: 2rem;
     height: 0.142857142857143rem;
     margin-top: 1.071428571428571rem;
@@ -196,8 +197,7 @@
   border-radius: 5px;
 }
 
-.first,
-.second {
+.first{
   width: 100%;
   height: 50px;
   font-family: 'Open Sans', sans-serif;
@@ -211,9 +211,6 @@
   line-height: 50px;
 }
 
-.second {
-  opacity: 0;
-}
 
 .container:hover {
    width: 280px;
@@ -225,18 +222,13 @@
     transform: translateY(-8px);
     padding-top: 5px;
   }
-  .second {
-    transform: translateY(20px);
-    opacity: 1;
-  }
 }
 </style>
 
 <div class="container">
   <div class="wrap">
     <a onclick="SCMPBottomBar.showBottomBar()">
-    <div class="first">Show Bar</div>
-      <div class="second">Click to show.</div>
+      <div class="first">Show Bar</div>
     </a>
   </div>
 </div>
@@ -270,8 +262,8 @@
     <form class="bottom-bar-form" action="" method="GET">
       <div class="box-container">
         <input type="hidden" name="u" value="3775521f5f542047246d9c827">
-        <input type="hidden" name="id" value="3376425751">
-        <input class="email input-email" type="email" value="" name="EMAIL" placeholder="Your Email" required="">
+        <input type="hidden" name="id" value="49b181c3f1">
+        <input class="email input-email" type="email" value="" name="EMAIL" placeholder="Your Email" required="" id="bottom-bar-email">
         <input type="submit" value="SIGN UP" name="submit" id="mc-embedded-subscribe" class="form-button">
         <input type="hidden" value="" name="GA_CLIENID" class="" id="BOTTOM_BAR_GA_CLIENID">
       </div>
@@ -292,7 +284,7 @@
     <div class="error-title">Sorry. There is a problem.</div>
 
     <div class="error-readmore">
-      Thank you, but there is an error. Please try subscribing on <a href="/newsletters" target="_blank" class="more__link link"> our newsletter page.</a>
+      Thank you - but unfortunately an error occurred. Please try subscribing on <a href="/newsletters" target="_blank" class="more__link link"> our newsletter page.</a>
     </div>
   </div>
 </div>
@@ -383,12 +375,17 @@ SCMPBottomBar = (function() {
 
   function submitForm(e) {
     e.preventDefault();
-    trackEvent('Bottom Bar', 'Bottom Bar/Sign up/'+getBarShowTime(), newsletterName);
 
     let subscriptionURL = "//scmp.us18.list-manage.com/subscribe/post-json?";
 
     // Fill in GA_CLIENID
     document.getElementById('BOTTOM_BAR_GA_CLIENID').value = getGAId();
+
+
+    // Get email field
+    let emailValue = document.getElementById('bottom-bar-email').value;
+    trackEvent('Bottom Bar', 'Bottom Bar/Sign up/'+getBarShowTime(), newsletterName);
+    trackEvent('Bottom Bar', 'Bottom Bar/Sign up email', emailValue);
 
     let formData = Array.from(
       new FormData(formElement),
@@ -418,6 +415,7 @@ SCMPBottomBar = (function() {
   }
 
   function trackEvent(category, action, label) {
+    console.log("Track:"+category+" "+action+" "+label);
     dataLayer.push({'event':'tracking',
       'tracking': {category: category, action:action , label: label}
     })
@@ -476,18 +474,31 @@ SCMPBottomBar = (function() {
   }
 
   function showBottomBarInSeconds(seconds) {
-    setTimeout(showBottomBar, seconds*1000)
+    setTimeout(showBottomBar, seconds*1000);
+  }
+
+
+  function initTrackPageEvents() {
+    let trackPageEventAtSecond = function(second) {
+      trackEvent('Bottom Bar', 'Bottom Bar/Time after page load', second+'s');
+    }
+    setTimeout(trackPageEventAtSecond, 5*1000, 5);
+    setTimeout(trackPageEventAtSecond, 10*1000, 10);
+    setTimeout(trackPageEventAtSecond, 15*1000, 15);
+    setTimeout(trackPageEventAtSecond, 30*1000, 30);
   }
 
   /* Perform experiment when meets criteria */
   function initExperiment() {
     const MAX_SHOW_TIME = 5;
       if (getBarShowTime() < MAX_SHOW_TIME && isAfterOneDay()) {
-          console.log("will show");
+          console.log("will show in 5s");
           showBottomBarInSeconds(5);
       } else {
         console.log("won't show")
       }
+
+      initTrackPageEvents();
   }
 
   /* Export */
