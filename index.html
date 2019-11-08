@@ -169,9 +169,6 @@
 <!-- DEBUG USE: -->
 <style>
   @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-body {
-  background: linear-gradient(35deg, #64B6AC, #3C6B7C 100%);
-}
 
 .container,
 .first,
@@ -193,7 +190,7 @@ body {
 .wrap {
   width: 100%;
   height: 50px;
-  border: 2px solid #FFF;
+  border: 2px solid #000;
   transition: all 0.3s ease;
   border-radius: 5px;
 }
@@ -206,7 +203,7 @@ body {
   transition: all 0.2s ease-in-out;
   font-size: 17px;
   text-transform: uppercase;
-  color: #FFF;
+  color: #000;
   letter-spacing: 2px;
   text-align: center;
   vertical-align: middle;
@@ -236,7 +233,7 @@ body {
 
 <div class="container">
   <div class="wrap">
-    <a href="#" target="_blank" onclick="SCMPBottomBar.showBottomBar()">
+    <a onclick="SCMPBottomBar.showBottomBar()">
     <div class="first">Show Bar</div>
       <div class="second">Click to show now!</div>
     </a>
