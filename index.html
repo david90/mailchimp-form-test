@@ -407,50 +407,50 @@ SCMPBottomBar = (function() {
 
     /*.AJAX way */
 
-      $.ajax({
-          url: subscriptionURL + formData + "",
-          dataType: 'jsonp',
-          jsonp: 'c',
-          crossDomain: true,
-          success: function(json){
-           if (json.result !== "error") {
-              console.log('success!', json);
-              trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
-              showSuccess()
-            } else {
-              console.log('error', json);
-              showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
-              showError();
-            }
+      // $.ajax({
+      //     url: subscriptionURL + formData + "",
+      //     dataType: 'jsonp',
+      //     jsonp: 'c',
+      //     crossDomain: true,
+      //     success: function(json){
+      //      if (json.result !== "error") {
+      //         console.log('success!', json);
+      //         trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
+      //         showSuccess()
+      //       } else {
+      //         console.log('error', json);
+      //         showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+      //         showError();
+      //       }
 
-          },
-          error:function(jqXHR, textStatus, errorThrown){
-            alert(errorThrown);
-          }
-      });
+      //     },
+      //     error:function(jqXHR, textStatus, errorThrown){
+      //       alert(errorThrown);
+      //     }
+      // });
 
     /*Old way*/
 
-    // $jsonp.send(subscriptionURL + formData + "&c=callback", {
-    //   callbackName: 'callback',
-    //   onSuccess: function(json) {
-    //     if (json.result !== "error") {
-    //       console.log('success!', json);
-    //       trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
-    //       showSuccess()
-    //     } else {
-    //       console.log('error', json);
-    //       showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
-    //       showError();
-    //     }
-    //   },
-    //   onTimeout: function() {
-    //     console.log('timeout!');
-    //     trackEvent('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
-    //     showError();
-    //   },
-    //   timeout: 10
-    // });
+    $jsonp.send(subscriptionURL + formData + "&c=callback", {
+      callbackName: 'callback',
+      onSuccess: function(json) {
+        if (json.result !== "error") {
+          console.log('success!', json);
+          trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
+          showSuccess()
+        } else {
+          console.log('error', json);
+          showSuccess('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+          showError();
+        }
+      },
+      onTimeout: function() {
+        console.log('timeout!');
+        trackEvent('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+        showError();
+      },
+      timeout: 10
+    });
   }
 
   function trackEvent(category, action, label) {
