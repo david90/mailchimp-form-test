@@ -51,9 +51,6 @@
   }
 
   .overlay-bottom-bar .form-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
     background-color: #4585FF;
     color: #fff;
     padding: 0 1.428571428571429rem;
@@ -231,19 +228,19 @@
 <div class="container">
   <div class="wrap">
     <a onclick="SCMPBottomBar.showBottomBar()">
-      <div class="first">Show Bar Now</div>
+      <div class="first">Show Bar</div>
     </a>
   </div>
 </div>
 
 
-<!-- END OF DEBUG USE: -->
+<!-- END OF DEBUG USE -->
 
 <!-- Begin of HTML Element -->
 
 
 <div class="overlay-bottom-bar hide" id="slide">
-  <div class="bottom-bar-close-button">
+  <div class="bottom-bar-close-button" onclick="SCMPBottomBar.dismissBottomBar()">
     <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="newsletter_slidein_desktop" transform="translate(-1380.000000, -725.000000)">
@@ -262,7 +259,7 @@
     <div class="form-title">Don't miss critical events in Hong Kong</div>
     <div class="form-subtitle">Get our newsletter sent Monday to Friday</div>
 
-    <form class="bottom-bar-form" action="" method="GET">
+    <form class="bottom-bar-form" action="" method="GET" onsubmit="SCMPBottomBar.submitForm();return false;">
       <div class="box-container">
         <input type="hidden" name="u" value="3775521f5f542047246d9c827">
         <input type="hidden" name="id" value="49b181c3f1">
@@ -376,10 +373,9 @@ SCMPBottomBar = (function() {
     trackEvent('Bottom Bar', 'Bottom Bar/Dismiss', newsletterName);
   }
 
-  function submitForm(e) {
-    e.preventDefault();
-
+  function submitForm() {
     let subscriptionURL = "//scmp.us18.list-manage.com/subscribe/post-json?";
+    let formElement = document.querySelector(".bottom-bar-form")
 
     // Fill in GA_CLIENID
     document.getElementById('BOTTOM_BAR_GA_CLIENID').value = getGAId();
@@ -399,17 +395,15 @@ SCMPBottomBar = (function() {
       callbackName: 'callback',
       onSuccess: function(json) {
         if (json.result !== "error") {
-          console.log('success!', json);
           trackEvent('Bottom Bar', 'Bottom Bar/Sign up success', newsletterName);
           showSuccess()
         } else {
-          console.log('error', json);
           trackEvent('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
+          trackEvent('Bottom Bar', 'Bottom Bar/Error reason', json);
           showError();
         }
       },
       onTimeout: function() {
-        console.log('timeout!');
         trackEvent('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
         showError();
       },
@@ -418,19 +412,19 @@ SCMPBottomBar = (function() {
   }
 
   function trackEvent(category, action, label) {
-    console.log("Track:"+category+" "+action+" "+label);
     dataLayer.push({'event':'tracking',
       'tracking': {category: category, action:action , label: label}
     })
   }
 
   /* Event listeners */
+  function addBottomBarEventListeners() {
+    // let formElement = document.querySelector(".bottom-bar-form")
+    // formElement.addEventListener('submit', submitForm);
 
-  let formElement = document.querySelector(".bottom-bar-form")
-  formElement.addEventListener('submit', submitForm);
-
-  let closeButtonElement = document.querySelector('.bottom-bar-close-button')
-  closeButtonElement.addEventListener('click', dismissBottomBar);
+    // let closeButtonElement = document.querySelector('.bottom-bar-close-button')
+    // closeButtonElement.addEventListener('click', dismissBottomBar);
+  }
 
   /* control when to show */
 
@@ -440,10 +434,6 @@ SCMPBottomBar = (function() {
   function recordBarShown () {
     let timeShown = getBarShowTime();
     window.localStorage.setItem(BAR_SHOW_COUNT, timeShown+1);
-  }
-
-  function shouldShowBar () {
-    return getBarShowTime < 3;
   }
 
   function getBarShowTime() {
@@ -493,15 +483,28 @@ SCMPBottomBar = (function() {
 
   /* Perform experiment when meets criteria */
   function initExperiment() {
+    window.started_tracking_view_time = true;
     const MAX_SHOW_TIME = 5;
+
+    addBottomBarEventListeners();
+    // Anyway, hide the bar
       if (getBarShowTime() < MAX_SHOW_TIME && isAfterOneDay()) {
-          console.log("will show in 5s");
+          //console.log("will show in 5s");
           showBottomBarInSeconds(5);
       } else {
-        console.log("won't show")
+        //console.log("won't show")
       }
-
       initTrackPageEvents();
+  }
+
+
+  /* Micro interaction */
+  function addPageChangeHideBottomBarListener() {
+    var pushState = history.pushState;
+    history.pushState = function () {
+        pushState.apply(history, arguments);
+        SCMPBottomBar.dismissBottomBar();
+    };
   }
 
   /* Export */
@@ -532,12 +535,23 @@ SCMPBottomBar = (function() {
     },
     initExperiment: function() {
       return initExperiment();
+    },
+    addPageChangeHideBottomBarListener: function() {
+      return addPageChangeHideBottomBarListener();
+    },
+    submitForm: function() {
+      submitForm();
+      return false;
     }
   }
 
 })();
 
-SCMPBottomBar.initExperiment();
+if (!window.started_tracking_view_time) {
+  SCMPBottomBar.initExperiment();
+  SCMPBottomBar.addPageChangeHideBottomBarListener();
+}
+
 
 </script>
 </html>
