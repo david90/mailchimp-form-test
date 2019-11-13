@@ -399,7 +399,7 @@ SCMPBottomBar = (function() {
           showSuccess()
         } else {
           trackEvent('Bottom Bar', 'Bottom Bar/Sign up error', newsletterName);
-          trackEvent('Bottom Bar', 'Bottom Bar/Error reason', json);
+          trackEvent('Bottom Bar', 'Bottom Bar/Error reason', json.msg);
           showError();
         }
       },
